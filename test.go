@@ -87,7 +87,9 @@ func main() {
 		case sign == "*":
 			fmt.Printf("%d * %d = %d", a, b, a*b)
 		case sign == "/":
-			fmt.Printf("%d / %d = %d", a, b, a/b)
+   if a%b != 0 {
+    panic("Должны быть числа от 1 до 10 включительно. Числа должны быть целыми)
+   }			fmt.Printf("%d / %d = %d", a, b, a/b)
 
 		}
 	}
