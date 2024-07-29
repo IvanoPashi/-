@@ -13,7 +13,7 @@ func main() {
 		"I":    1,
 		"II":   2,
 		"III":  3,
-		"IV ":  4,
+		"IV":   4,
 		"V":    5,
 		"VI":   6,
 		"VII":  7,
@@ -57,14 +57,16 @@ func main() {
 
 		switch {
 		case sign == "+":
-			fmt.Printf("%d + %d = %d", a, b, a+b)
+			fmt.Printf("%d + %d = %d\n", a, b, a+b)
 		case sign == "-":
-			fmt.Printf("%d - %d = %d", a, b, a-b)
+			fmt.Printf("%d - %d = %d\n", a, b, a-b)
 		case sign == "*":
-			fmt.Printf("%d * %d = %d", a, b, a*b)
+			fmt.Printf("%d * %d = %d\n", a, b, a*b)
 		case sign == "/":
-			fmt.Printf("%d / %d = %d", a, b, a/b)
-
+			if a%b != 0 {
+				panic("Результатом могут быть целые числа")
+			}
+			fmt.Printf("%d / %d = %d\n", a, b, a/b)
 		}
 	} else {
 		a := romanToArabic[a1]
@@ -81,16 +83,16 @@ func main() {
 
 		switch {
 		case sign == "+":
-			fmt.Printf("%d + %d = %d", a, b, a+b)
+			fmt.Printf("%d + %d = %d\n", a, b, a+b)
 		case sign == "-":
-			fmt.Printf("%d - %d = %d", a, b, a-b)
+			fmt.Printf("%d - %d = %d\n", a, b, a-b)
 		case sign == "*":
-			fmt.Printf("%d * %d = %d", a, b, a*b)
+			fmt.Printf("%d * %d = %d\n", a, b, a*b)
 		case sign == "/":
-   if a%b != 0 {
-    panic("Должны быть числа от 1 до 10 включительно. Числа должны быть целыми)
-   }			fmt.Printf("%d / %d = %d", a, b, a/b)
-
+			if a%b != 0 {
+				panic("Результатом могут быть целые числа")
+			}
+			fmt.Printf("%d / %d = %d\n", a, b, a/b)
 		}
 	}
 }
