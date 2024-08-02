@@ -8,15 +8,18 @@ import (
 	"strings"
 )
 
+// Map to convert Roman numerals to Arabic numerals
 var romanToArabic = map[string]int{
 	"I": 1, "II": 2, "III": 3, "IV": 4, "V": 5,
 	"VI": 6, "VII": 7, "VIII": 8, "IX": 9, "X": 10,
 }
 
+// Map to convert Arabic numerals to Roman numerals
 var arabicToRoman = []string{
 	"", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X",
 }
 
+// Convert Roman numeral to Arabic numeral
 func romanToInt(roman string) (int, error) {
 	if value, exists := romanToArabic[roman]; exists {
 		return value, nil
@@ -24,9 +27,18 @@ func romanToInt(roman string) (int, error) {
 	return 0, fmt.Errorf("Invalid Roman numeral: %s", roman)
 }
 
+// Convert Arabic numeral to Roman numeral
 func intToRoman(number int) (string, error) {
-	if number > 0 && number <= 10 {
-		return arabicToRoman[number], nil
+	if number > 0 {
+		result := ""
+		for number >= 10 {
+			result += "X"
+			number -= 10
+		}
+		if number > 0 {
+			result += arabicToRoman[number]
+		}
+		return result, nil
 	}
 	return "", fmt.Errorf("Resulting Roman numeral is out of bounds: %d", number)
 }
@@ -50,6 +62,7 @@ func main() {
 	var err error
 	var romanInput bool
 
+	// Determine if the input is Roman or Arabic
 	if _, exists := romanToArabic[input1]; exists {
 		romanInput = true
 		num1, err = romanToInt(input1)
