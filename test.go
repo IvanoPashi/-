@@ -1,9 +1,7 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"os"
 	"strconv"
 	"strings"
 )
@@ -44,41 +42,41 @@ func intToRoman(number int) (string, error) {
 }
 
 func main() {
-	reader := bufio.NewReader(os.Stdin)
+	var input string
+	fmt.Println("Введите выражение (например, 3 + 4 или IV * VI):")
+	_, err := fmt.Scanln(&input)
+	if err != nil {
+		panic("Failed to read input")
+	}
 
-	fmt.Println("Введите первое число:")
-	input1, _ := reader.ReadString('\n')
-	input1 = strings.TrimSpace(input1)
+	// Split the input by space
+	parts := strings.Split(input, " ")
+	if len(parts) != 3 {
+		panic("Input should be in the format: number operator number")
+	}
 
-	fmt.Println("Введите оператор (+, -, *, /):")
-	operator, _ := reader.ReadString('\n')
-	operator = strings.TrimSpace(operator)
-
-	fmt.Println("Введите второе число:")
-	input2, _ := reader.ReadString('\n')
-	input2 = strings.TrimSpace(input2)
+	num1Str, operator, num2Str := parts[0], parts[1], parts[2]
 
 	var num1, num2 int
-	var err error
 	var romanInput bool
 
 	// Determine if the input is Roman or Arabic
-	if _, exists := romanToArabic[input1]; exists {
+	if _, exists := romanToArabic[num1Str]; exists {
 		romanInput = true
-		num1, err = romanToInt(input1)
+		num1, err = romanToInt(num1Str)
 		if err != nil {
 			panic(err)
 		}
-		num2, err = romanToInt(input2)
+		num2, err = romanToInt(num2Str)
 		if err != nil {
 			panic(err)
 		}
 	} else {
-		num1, err = strconv.Atoi(input1)
+		num1, err = strconv.Atoi(num1Str)
 		if err != nil || num1 < 1 || num1 > 10 {
 			panic("Должны быть числа от 1 до 10 включительно. Числа должны быть целыми.")
 		}
-		num2, err = strconv.Atoi(input2)
+		num2, err = strconv.Atoi(num2Str)
 		if err != nil || num2 < 1 || num2 > 10 {
 			panic("Должны быть числа от 1 до 10 включительно. Числа должны быть целыми.")
 		}
@@ -103,7 +101,7 @@ func main() {
 
 	if romanInput {
 		if result < 1 {
-			panic("Resulting Roman numeral is less than I")
+			panic("Результат вычисления римских чисел меньше I")
 		}
 		romanResult, err := intToRoman(result)
 		if err != nil {
